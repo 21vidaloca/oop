@@ -21,7 +21,7 @@ public:
 
     int getTimpAsteptare() const { return timpAsteptare; }
 
-    const string& getNume() const {
+    [[maybe_unused]] const string& getNume() const {
         return nume;
     }
 };
@@ -42,7 +42,7 @@ public:
         return os;
     }
 
-    int getViteza() const {
+    [[maybe_unused]] int getViteza() const {
         return viteza;
     }
 };
