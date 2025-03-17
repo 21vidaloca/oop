@@ -1,145 +1,57 @@
 #include <iostream>
-#include<vector>
-#include<fstream>
-using namespace std;
+#include <array>
 
-class Statia {
-    string nume;
-    int timpAsteptare; // timp mediu de așteptare în secunde
-
-public:
-    Statia() : nume("Unknown"), timpAsteptare(0) {}
-    Statia(const string& nume, int timpAsteptare) { // constructor initializare
-        this->nume = nume;
-        this->timpAsteptare = timpAsteptare;
-    }
-
-    friend ostream& operator<<(ostream& os, const Statia& statie) {
-        os << "Statia: " << statie.nume << " | Timp asteptare: " << statie.timpAsteptare << " sec";
-        return os;
-    }
-
-    int getTimpAsteptare()
-    { // getter
-        return timpAsteptare;
-    }
-    string getNume() { // getter
-        return nume;
-    }
-};
-
-class Tren {
-    string id;
-    int capacitate;
-    int viteza; // în km/h
-
-public:
-    Tren() {
-        id = "Unknown";
-        capacitate = 0;
-        viteza = 0;
-    }
-
-    Tren(const string& id, int capacitate, int viteza) {
-        this->id = id;
-        this->capacitate = capacitate;
-        this->viteza = viteza;
-    }
-
-    friend ostream& operator<<(ostream& os, const Tren& tren) {
-        os << "Tren ID: " << tren.id << " | Capacitate: " << tren.capacitate
-           << " | Viteza: " << tren.viteza << " km/h";
-        return os;
-    }
-
-    int getViteza(){
-        return viteza;
-    }
-};
-
-class Traseu {
-    vector<Statia> statii;
-    Tren tren;
-
-public:
-    Traseu(const Tren& tren){
-        this->tren=tren;
-    }
-
-    // Constructor de copiere
-    Traseu(const Traseu& other) {
-        this->tren=other.tren;
-        this->statii=other.statii;
-    }
-
-    // Operator= de copiere
-    Traseu& operator=(const Traseu& other) {
-        if (this != &other) {
-            tren = other.tren;
-            statii = other.statii;
-        }
-        return *this;
-    }
-
-    // Destructor
-    ~Traseu() {}
-
-    void adaugaStatia(const Statia& statie) {
-        statii.push_back(statie);
-    }
-
-    [[maybe_unused]] double calculeazaTimpTotal(){
-        double timp = 0;
-        for (auto& s : statii) {
-            timp += s.getTimpAsteptare();
-        }
-        return timp;
-    }
-
-    friend ostream& operator<<(ostream& os, const Traseu& traseu) {
-        os << "Traseu pentru " << traseu.tren << "\nStatii:\n";
-        for (const auto& s : traseu.statii) {
-            os << "- " << s << "\n";
-        }
-        return os;
-    }
-};
-
-class ReteaMetrou {
-private:
-    vector<Traseu> trasee;
-public:
-    void adaugaTraseu(const Traseu& traseu) {
-        trasee.push_back(traseu);
-    }
-
-    void afisareTrasee() const {
-        for (const auto& traseu : trasee) {
-            cout << traseu << "\n";
-        }
-    }
-};
+#include <Helper.h>
 
 int main() {
-    // Creare rețea de metrou
-    ReteaMetrou retea;
-
-    // Creare trenuri
-    Tren tren1("M1", 300, 80);
-    Tren tren2("M2", 400, 90);
-
-    // Creare traseu
-    Traseu traseu1(tren2);
-    traseu1.adaugaStatia(Statia("Piata Unirii", 30));
-    traseu1.adaugaStatia(Statia("Universitate", 25));
-    traseu1.adaugaStatia(Statia("Victoriei", 35));
-    traseu1.adaugaStatia(Statia("Piata Romana", 35));
-    // Adăugare traseu în rețea
-    retea.adaugaTraseu(traseu1);
-
-    // Afisare informații despre rețea
-    cout << "Lista traseelor de metrou:\n";
-    retea.afisareTrasee();
-
+    std::cout << "Hello, world!\n";
+    std::array<int, 100> v{};
+    int nr;
+    std::cout << "Introduceți nr: ";
+    /////////////////////////////////////////////////////////////////////////
+    /// Observație: dacă aveți nevoie să citiți date de intrare de la tastatură,
+    /// dați exemple de date de intrare folosind fișierul tastatura.txt
+    /// Trebuie să aveți în fișierul tastatura.txt suficiente date de intrare
+    /// (în formatul impus de voi) astfel încât execuția programului să se încheie.
+    /// De asemenea, trebuie să adăugați în acest fișier date de intrare
+    /// pentru cât mai multe ramuri de execuție.
+    /// Dorim să facem acest lucru pentru a automatiza testarea codului, fără să
+    /// mai pierdem timp de fiecare dată să introducem de la zero aceleași date de intrare.
+    ///
+    /// Pe GitHub Actions (bife), fișierul tastatura.txt este folosit
+    /// pentru a simula date introduse de la tastatură.
+    /// Bifele verifică dacă programul are erori de compilare, erori de memorie și memory leaks.
+    ///
+    /// Dacă nu puneți în tastatura.txt suficiente date de intrare, îmi rezerv dreptul să vă
+    /// testez codul cu ce date de intrare am chef și să nu pun notă dacă găsesc vreun bug.
+    /// Impun această cerință ca să învățați să faceți un demo și să arătați părțile din
+    /// program care merg (și să le evitați pe cele care nu merg).
+    ///
+    /////////////////////////////////////////////////////////////////////////
+    std::cin >> nr;
+    /////////////////////////////////////////////////////////////////////////
+    for(int i = 0; i < nr; ++i) {
+        std::cout << "v[" << i << "] = ";
+        std::cin >> v[i];
+    }
+    std::cout << "\n\n";
+    std::cout << "Am citit de la tastatură " << nr << " elemente:\n";
+    for(int i = 0; i < nr; ++i) {
+        std::cout << "- " << v[i] << "\n";
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    /// Pentru date citite din fișier, NU folosiți tastatura.txt. Creați-vă voi
+    /// alt fișier propriu cu ce alt nume doriți.
+    /// Exemplu:
+    /// std::ifstream fis("date.txt");
+    /// for(int i = 0; i < nr2; ++i)
+    ///     fis >> v2[i];
+    ///
+    ///////////////////////////////////////////////////////////////////////////
+    ///                Exemplu de utilizare cod generat                     ///
+    ///////////////////////////////////////////////////////////////////////////
+    Helper helper;
+    helper.help();
+    ///////////////////////////////////////////////////////////////////////////
     return 0;
 }
