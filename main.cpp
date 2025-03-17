@@ -8,6 +8,7 @@ class Statia {
     int timpAsteptare; // timp mediu de așteptare în secunde
 
 public:
+    Statia() : nume("Unknown"), timpAsteptare(0) {}
     Statia(const string& nume, int timpAsteptare) { // constructor initializare
         this->nume = nume;
         this->timpAsteptare = timpAsteptare;
@@ -87,7 +88,7 @@ public:
         statii.push_back(statie);
     }
 
-    double calculeazaTimpTotal(){
+    [[maybe_unused]] double calculeazaTimpTotal(){
         double timp = 0;
         for (auto& s : statii) {
             timp += s.getTimpAsteptare();
