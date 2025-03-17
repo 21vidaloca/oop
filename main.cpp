@@ -55,7 +55,7 @@ public:
     explicit Traseu(const Tren& tren) : tren(tren) {}
 
     // Constructor de copiere corect
-    Traseu(const Traseu& other) : tren(other.tren), statii(other.statii) {}
+    Traseu(const Traseu& other) : statii(other.statii),tren(other.tren)  {}
 
     // Operator= corect
     Traseu& operator=(const Traseu& other) {
