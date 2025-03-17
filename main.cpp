@@ -1,6 +1,6 @@
 #include <iostream>
-#include<vector>
-#include<fstream>
+#include <vector>
+#include <fstream>
 using namespace std;
 
 class Statia {
@@ -9,7 +9,7 @@ class Statia {
 
 public:
     Statia() : nume("Unknown"), timpAsteptare(0) {}
-    Statia(const string& nume, int timpAsteptare) { // constructor initializare
+    Statia(const string& nume, int timpAsteptare) {
         this->nume = nume;
         this->timpAsteptare = timpAsteptare;
     }
@@ -19,11 +19,9 @@ public:
         return os;
     }
 
-    int getTimpAsteptare() const
-    { // getter
-        return timpAsteptare;
-    }
-    string getNume() const { // getter
+    int getTimpAsteptare() const { return timpAsteptare; }
+
+    const string& getNume() const {
         return nume;
     }
 };
@@ -34,17 +32,9 @@ class Tren {
     int viteza; // în km/h
 
 public:
-    Tren() {
-        id = "Unknown";
-        capacitate = 0;
-        viteza = 0;
-    }
+    Tren() : id("Unknown"), capacitate(0), viteza(0) {}
 
-    Tren(const string& id, int capacitate, int viteza) {
-        this->id = id;
-        this->capacitate = capacitate;
-        this->viteza = viteza;
-    }
+    Tren(const string& id, int capacitate, int viteza) : id(id), capacitate(capacitate), viteza(viteza) {}
 
     friend ostream& operator<<(ostream& os, const Tren& tren) {
         os << "Tren ID: " << tren.id << " | Capacitate: " << tren.capacitate
@@ -62,17 +52,12 @@ class Traseu {
     Tren tren;
 
 public:
-    Traseu(const Tren& tren){
-        this->tren=tren;
-    }
+    explicit Traseu(const Tren& tren) : tren(tren) {}
 
-    // Constructor de copiere
-    Traseu(const Traseu& other) {
-        this->tren=other.tren;
-        this->statii=other.statii;
-    }
+    // Constructor de copiere corect
+    Traseu(const Traseu& other) : tren(other.tren), statii(other.statii) {}
 
-    // Operator= de copiere
+    // Operator= corect
     Traseu& operator=(const Traseu& other) {
         if (this != &other) {
             tren = other.tren;
@@ -81,16 +66,15 @@ public:
         return *this;
     }
 
-    // Destructor
     ~Traseu() {}
 
     void adaugaStatia(const Statia& statie) {
         statii.push_back(statie);
     }
 
-    [[maybe_unused]] double calculeazaTimpTotal() const{
+    [[maybe_unused]] double calculeazaTimpTotal() const {
         double timp = 0;
-        for (auto& s : statii) {
+        for (const auto& s : statii) {
             timp += s.getTimpAsteptare();
         }
         return timp;
@@ -108,6 +92,7 @@ public:
 class ReteaMetrou {
 private:
     vector<Traseu> trasee;
+
 public:
     void adaugaTraseu(const Traseu& traseu) {
         trasee.push_back(traseu);
@@ -121,25 +106,20 @@ public:
 };
 
 int main() {
-    // Creare rețea de metrou
     ReteaMetrou retea;
-
-    // Creare trenuri
     Tren tren1("M1", 300, 80);
-    Tren tren2("M2", 400, 90);
 
-    // Creare traseu
-    Traseu traseu1(tren2);
+    Traseu traseu1(tren1);
     traseu1.adaugaStatia(Statia("Piata Unirii", 30));
     traseu1.adaugaStatia(Statia("Universitate", 25));
     traseu1.adaugaStatia(Statia("Victoriei", 35));
-    traseu1.adaugaStatia(Statia("Piata Romana", 35));
-    // Adăugare traseu în rețea
+
     retea.adaugaTraseu(traseu1);
 
-    // Afisare informații despre rețea
     cout << "Lista traseelor de metrou:\n";
     retea.afisareTrasee();
+
+    cout << "Timp total pe traseu: " << traseu1.calculeazaTimpTotal() << " sec\n";
 
     return 0;
 }
