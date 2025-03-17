@@ -21,9 +21,9 @@ public:
 
     int getTimpAsteptare() const { return timpAsteptare; }
 
-    [[maybe_unused]] const string& getNume() const {
+    /*const string& getNume() const {
         return nume;
-    }
+    }*/
 };
 
 class Tren {
@@ -42,7 +42,7 @@ public:
         return os;
     }
 
-    [[maybe_unused]] int getViteza() const {
+    int getViteza() const {
         return viteza;
     }
 };
@@ -72,7 +72,7 @@ public:
         statii.push_back(statie);
     }
 
-    [[maybe_unused]] double calculeazaTimpTotal() const {
+    double calculeazaTimpTotal() const {
         double timp = 0;
         for (const auto& s : statii) {
             timp += s.getTimpAsteptare();
@@ -120,6 +120,7 @@ int main() {
     retea.afisareTrasee();
 
     cout << "Timp total pe traseu: " << traseu1.calculeazaTimpTotal() << " sec\n";
+    cout<<tren1.getViteza()<<"\n";
 
     return 0;
 }
