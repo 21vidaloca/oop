@@ -18,7 +18,8 @@ public:
         return os;
     }
 
-    int getTimpAsteptare() { // getter
+    int getTimpAsteptare()
+    { // getter
         return timpAsteptare;
     }
     string getNume() { // getter
@@ -131,7 +132,7 @@ int main() {
     traseu1.adaugaStatia(Statia("Piata Unirii", 30));
     traseu1.adaugaStatia(Statia("Universitate", 25));
     traseu1.adaugaStatia(Statia("Victoriei", 35));
-
+    traseu1.adaugaStatia(Statia("Piata Romana", 35));
     // Adăugare traseu în rețea
     retea.adaugaTraseu(traseu1);
 
